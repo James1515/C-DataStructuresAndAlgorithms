@@ -1,0 +1,72 @@
+//===================================================
+//Author: James Ortiz
+//File: genericInsertionSort.cpp
+//Description: A generic version of insertion sort.
+//Compile: 
+//====================================================
+
+
+#include<algorithm>
+#include<iostream>
+
+#include<vector>
+#include<deque>
+#include<queue>
+
+#include<iterator>
+using namespace std;
+
+
+template<class Iterator>
+void insertion_sort(Iterator a, Iterator end)
+{
+    std::iter_swap(a, std::min_element(a, end));
+ 
+    for ( Iterator b = a; ++b < end; a = b )
+        for( Iterator c = b; *c < *a; --c, --a )
+            std::iter_swap( a, c );
+}
+
+
+
+int main(void)
+{
+  std::vector<int> A = {5, 6, 7, 9, 1};
+  std::deque<int> B = {5, 6, 7, 9, 1};
+  
+  std::vector<int>::iterator a = A.begin();
+  std::vector<int>::iterator end = A.end();
+
+  //insertion_sort(a, end);
+  insertion_sort(a, end);
+  //Display new array:
+
+  std::vector<int>::iterator ptr;
+  std::cout << "The vector elements in order: ";
+  for(ptr = A.begin(); ptr < A.end(); ptr++)
+    {
+      std::cout << (*ptr) << " ";
+    }
+
+  std::cout << " \n"; 
+
+  //Should print [1, 5, 6, 7, 9]
+
+  std::deque<int>::iterator b = B.begin();
+  std::deque<int>::iterator bend = B.end();
+
+  insertion_sort(b, bend);
+  
+  std::deque<int>::iterator bptr;
+
+  std::cout << "The deque elements in order: ";
+  for(bptr = B.begin(); bptr < B.end(); bptr++)
+    {
+      std::cout << (*bptr) << " ";
+    }
+
+  std::cout << " \n";
+
+  
+  
+}//end MAIN
